@@ -18,12 +18,15 @@ class RickAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.View
             notifyDataSetChanged()
         }
 
+    lateinit var listener: RickAdapter.ItemClickListener
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return CharacterHolder(LayoutInflater.from(context).inflate(R.layout.list_item_character, parent, false))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val holder = holder as CharacterHolder
+        holder.character = list[position]
         holder.name.text = list[position].name
         holder.species.text = list[position].species
         holder.subSpecies.text = list[position].type.takeIf { it.isNotBlank() } ?: context.getString(R.string.subspecies)
@@ -33,14 +36,20 @@ class RickAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.View
             .build()
             .load(list[position].image)
             .into(holder.imageView)
+        holder.view.setOnClickListener { this.listener.onItemClick(holder) }
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
+
+    interface ItemClickListener {
+        fun onItemClick(view : RecyclerView.ViewHolder)
+    }
 }
 
 data class CharacterHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    var character : Character? = null
     var name: TextView = view.findViewById(R.id.name)
     var species: TextView = view.findViewById(R.id.species)
     var subSpecies: TextView = view.findViewById(R.id.subSpecies)

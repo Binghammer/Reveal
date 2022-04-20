@@ -14,33 +14,17 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var provider: ServiceProvider
-    private lateinit var recyclerview: RecyclerView
-    private lateinit var rickAdapter : RickAdapter
+    lateinit var provider: ServiceProvider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Timber.d("MainActivity.onCreate:")
         provider = ServiceProvider(this)
-
-        recyclerview = findViewById(R.id.recyclerview)
-        recyclerview.layoutManager = LinearLayoutManager(this)
-        rickAdapter = RickAdapter(this)
-        recyclerview.adapter = rickAdapter
     }
 
     override fun onResume() {
         super.onResume()
         Timber.d("MainActivity.onResume:")
-        provider.okHttp.character((1..101).toList().map { it.toString() })
-            .observeOn(AndroidSchedulers.mainThread())
-            .map { it.sortedByDescending { character -> character.name } }
-            .subscribe({
-                Timber.d("MainActivity.onResume.okHttp.character:$it")
-                rickAdapter.list  = it
-            }, {
-                Timber.e(it, "MainActivity.onResume.okHttp.character:")
-            })
     }
 }

@@ -1,4 +1,4 @@
-package com.ua.openproject.character
+package com.openproject.character
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
 import com.squareup.picasso.Picasso
-import com.ua.openproject.MainActivity
+import com.openproject.MainActivity
 import com.ua.openproject.databinding.FragmentCharacterDetailsBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 

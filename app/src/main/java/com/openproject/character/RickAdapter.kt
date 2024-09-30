@@ -1,4 +1,4 @@
-package com.ua.openproject.character
+package com.openproject.character
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.ua.openproject.R
-import com.ua.openproject.service.Character
+import com.openproject.service.Character
 
 class RickAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var list = listOf<Character>()
@@ -18,7 +18,7 @@ class RickAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.View
             notifyDataSetChanged()
         }
 
-    lateinit var listener: RickAdapter.ItemClickListener
+    lateinit var listener: ItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return CharacterHolder(LayoutInflater.from(context).inflate(R.layout.list_item_character, parent, false))

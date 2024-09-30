@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name=".OpenProjectApp"
+        android:name="com.openproject.OpenProjectApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OpenProject">
         <activity
-            android:name=".MainActivity"
+            android:name="com.openproject.MainActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>

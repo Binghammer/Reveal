@@ -1,15 +1,9 @@
-package com.ua.openproject
+package com.openproject
 
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.ua.openproject.character.RickAdapter
-import com.ua.openproject.service.ServiceProvider
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.ua.openproject.R
+import com.openproject.service.ServiceProvider
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {

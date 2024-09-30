@@ -1,7 +1,7 @@
-package com.ua.openproject
+package com.openproject
 
 import android.app.Application
-import com.ua.openproject.log.LogginTree
+import com.openproject.log.LogginTree
 import timber.log.Timber
 
 class OpenProjectApp : Application() {

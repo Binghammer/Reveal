@@ -1,15 +1,14 @@
-package com.ua.openproject.character
+package com.openproject.character
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ua.openproject.MainActivity
+import com.openproject.MainActivity
 import com.ua.openproject.R
 import com.ua.openproject.databinding.FragmentCharacterBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

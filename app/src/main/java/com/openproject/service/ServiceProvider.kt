@@ -1,4 +1,4 @@
-package com.ua.openproject.service
+package com.openproject.service
 
 import android.content.Context
 import com.google.gson.GsonBuilder

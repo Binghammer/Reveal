@@ -1,4 +1,4 @@
-package com.ua.openproject.service
+package com.openproject.service
 
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/character_fragment"
-        android:name="com.ua.openproject.character.CharcterFragment"
+        android:name="com.openproject.character.CharcterFragment"
         android:label="Welcome"
         tools:layout="@layout/fragment_character">
         <action
@@ -19,7 +19,7 @@
     <fragment
         tools:layout="@layout/fragment_character_details"
         android:id="@+id/character_details_fragment"
-        android:name="com.ua.openproject.character.CharacterDetailFragment" >
+        android:name="com.openproject.character.CharacterDetailFragment" >
         <argument
             android:name="name"
             app:argType="string"

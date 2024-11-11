@@ -1,4 +1,4 @@
-package com.openproject.ui.list
+package com.openproject.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

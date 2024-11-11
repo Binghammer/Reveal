@@ -45,7 +45,6 @@ internal object MainModule {
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
         @Named(BASE_URL) url: String,
-
     ): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
@@ -66,8 +65,8 @@ internal object MainModule {
     @Provides
     @Singleton
     fun provideRickRepsistory(
-        service: RickService
-    ): RickRepository{
+        service: RickService,
+    ): RickRepository {
         return RickRepository(service)
     }
 }

@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso
 import com.ua.openproject.R
 import com.openproject.data.model.Character
 
+//TODO optimize
 class RickAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var list = listOf<Character>()
         set(value) {

@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OpenProject">
         <activity
-            android:name="com.openproject.ui.list.MainActivity"
+            android:name="com.openproject.ui.MainActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>

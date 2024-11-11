@@ -1,4 +1,4 @@
-package com.openproject.log
+package com.openproject.util
 
 import android.util.Log
 import timber.log.Timber

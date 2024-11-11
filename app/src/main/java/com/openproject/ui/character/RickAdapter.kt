@@ -1,4 +1,4 @@
-package com.openproject.character
+package com.openproject.ui.character
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.ua.openproject.R
-import com.openproject.service.Character
+import com.openproject.data.model.Character
 
 class RickAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var list = listOf<Character>()

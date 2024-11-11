@@ -1,4 +1,4 @@
-package com.openproject.service
+package com.openproject.data.model
 
 data class Character(
     val id: Int, //	The id of the character.

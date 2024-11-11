@@ -1,5 +1,6 @@
-package com.openproject.service
+package com.openproject.data.api
 
+import com.openproject.data.model.Character
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path

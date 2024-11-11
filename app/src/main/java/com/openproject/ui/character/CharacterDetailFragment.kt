@@ -1,4 +1,4 @@
-package com.openproject.character
+package com.openproject.ui.character
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,33 +8,40 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
+import com.openproject.data.repository.RickRepository
 import com.squareup.picasso.Picasso
-import com.openproject.MainActivity
 import com.ua.openproject.databinding.FragmentCharacterDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class CharacterDetailFragment : Fragment() {
 
-    private var _binding : FragmentCharacterDetailsBinding?= null
-    private val binding
-        get() = _binding!!
+    private lateinit var binding: FragmentCharacterDetailsBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding =  FragmentCharacterDetailsBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+    @Inject lateinit var provider: RickRepository
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        binding = FragmentCharacterDetailsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val navArgs by navArgs<CharacterDetailFragmentArgs>()
         NavigationUI.setupWithNavController(binding.toolbar, findNavController())
         binding.toolbar.title = navArgs.name
-        (activity as MainActivity)
-            .provider
-            .okHttp
-            .character(listOf(""+navArgs.id))
+
+        // TODO move to VM
+        // TODO Use Coroutines
+        provider
+            .character(listOf("" + navArgs.id))
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe{
+            .subscribe {
                 Picasso.get().load(it[0].image).into(binding.image)
                 binding.name.text = it[0].name
                 binding.species.text = it[0].species

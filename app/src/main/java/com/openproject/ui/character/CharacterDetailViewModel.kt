@@ -21,8 +21,9 @@ class CharacterDetailViewModel @Inject constructor(
 
     private lateinit var disposable: Disposable
 
-    fun setArgs(id: String) {
-        disposable = rickRepository.getCharacter(id)
+    fun setArgs(id: Int) {
+        disposable = rickRepository
+            .getCharacter(id)
             .subscribe(_character::postValue, Timber::e)
     }
 

@@ -28,13 +28,14 @@ class CharacterDetailFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentCharacterDetailsBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val navArgs by navArgs<CharacterDetailFragmentArgs>()
         binding.toolbar.title = navArgs.name
-        viewModel.setArgs(navArgs.id.toString())
+        viewModel.setArgs(navArgs.id)
         observeViewModel()
     }
 

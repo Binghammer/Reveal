@@ -1,8 +1,11 @@
 package com.openproject.data.di
 
 import android.content.Context
+import androidx.room.Room
 import com.google.gson.GsonBuilder
 import com.openproject.data.api.RickService
+import com.openproject.data.repository.AppDatabase
+import com.openproject.data.repository.CharacterDao
 import com.openproject.data.repository.RickRepository
 import com.ua.openproject.R
 import dagger.Module
@@ -62,11 +65,31 @@ internal object MainModule {
         return retrofit.create(RickService::class.java)
     }
 
+
+
     @Provides
     @Singleton
-    fun provideRickRepsistory(
+    fun provideAppDatabase(
+        @ApplicationContext appContext: Context,
+    ): AppDatabase {
+        return Room
+            .databaseBuilder(appContext, AppDatabase::class.java, "rick")
+            .build()
+    }
+    @Provides
+    @Singleton
+    fun provideCharacterDao(
+        appDatabase: AppDatabase,
+    ): CharacterDao{
+        return appDatabase.characterDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRickRepository(
         service: RickService,
+        characterDao: CharacterDao,
     ): RickRepository {
-        return RickRepository(service)
+        return RickRepository(service, characterDao)
     }
 }

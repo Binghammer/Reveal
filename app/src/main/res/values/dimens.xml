@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="small_image_height">64dp</dimen>
-    <dimen name="small_image_width">48dp</dimen>
+    <dimen name="small_image_height">72dp</dimen>
+    <dimen name="small_image_width">72dp</dimen>
     <dimen name="large_image_height">128dp</dimen>
     <dimen name="large_image_width">96dp</dimen>
+    <dimen name="text_large">18sp</dimen>
+    <dimen name="margin_med">16dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
 </resources>

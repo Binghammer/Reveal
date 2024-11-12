@@ -66,7 +66,7 @@ class RickAdapter(
                 .placeholder(R.drawable.outline_person_24)
                 .resizeDimen(R.dimen.small_image_height, R.dimen.small_image_width)
                 .centerInside()
-                .into(binding.imageView)
+                .into(binding.figureImage)
         }
     }
 

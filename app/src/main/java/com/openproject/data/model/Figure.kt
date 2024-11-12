@@ -2,6 +2,7 @@ package com.openproject.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 /**
@@ -63,7 +64,8 @@ data class Figure(
 
     @ColumnInfo
     var created: String,
-)
+) {
+    @Ignore
+    val specificSpecies: String = species + if(type.isNotBlank()) " / $type" else ""
+}
 
-data class Location(val name: String, val url: String)
-data class Origin(val name: String, val url: String)

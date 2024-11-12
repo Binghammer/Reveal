@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.openproject.data.model.Figure
+import com.openproject.ui.list.FiguresListFragmentDirections.Companion.figureFragmentToDetails
+import com.openproject.util.showDividers
 import com.squareup.picasso.Picasso
 import com.ua.openproject.R
 import com.ua.openproject.databinding.FragmentFiguresListBinding
@@ -38,6 +40,7 @@ class FiguresListFragment : Fragment(R.layout.fragment_figures_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.recyclerview.adapter = rickAdapter
+        binding.recyclerview.showDividers()
     }
 
     override fun onResume() {
@@ -51,14 +54,9 @@ class FiguresListFragment : Fragment(R.layout.fragment_figures_list) {
         }
     }
 
-    //TODO normally, I would move this to the ViewModel
     fun onFigureClicked(figure: Figure) {
         findNavController().navigate(
-            FiguresListFragmentDirections
-                .figureFragmentToDetails(
-                    figure.name,
-                    figure.id
-                )
+            figureFragmentToDetails(figure.name, figure.id)
         )
     }
 }

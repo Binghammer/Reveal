@@ -1,7 +1,7 @@
 package com.openproject
 
 import android.app.Application
-import com.openproject.util.LogginTree
+import com.openproject.util.LoggingTree
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -10,6 +10,6 @@ class OpenProjectApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Timber.plant(LogginTree())
+        Timber.plant(LoggingTree())
     }
 }

@@ -35,7 +35,7 @@
             tools:src="@tools:sample/avatars" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/name"
+            android:id="@+id/figure_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -45,13 +45,13 @@
             tools:text="@tools:sample/lorem" />
 
         <TextView
-            android:id="@+id/species"
+            android:id="@+id/figure_species"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{figure.species}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/figure_name"
             tools:text="@tools:sample/lorem" />
 
         <TextView
@@ -62,7 +62,7 @@
             app:layout_constraintBottom_toTopOf="@+id/known_location"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/species"
+            app:layout_constraintTop_toBottomOf="@+id/figure_species"
             tools:text="@tools:sample/lorem" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -96,7 +96,7 @@
             tools:text="@tools:sample/lorem" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/origin_Name"
+            android:id="@+id/figure_origin"
             android:layout_width="wrap_content"
             android:text="@{figure.origin.name}"
             android:layout_height="wrap_content"

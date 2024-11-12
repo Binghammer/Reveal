@@ -66,19 +66,11 @@ class RickRepository @Inject constructor(
                 // updated often.
 
                 //Could either save as we go, or return when done. Depends on specs
-                figureDao.insertFigures(normalize(response.results))
+                figureDao.insertFigures(response.results)
             }
 
             if (page != null) {
                 fetch()
-            }
-        }
-
-        private fun normalize(figures: List<Figure>): List<Figure> {
-            return figures.onEach { figure ->
-                if (figure.species.isBlank()) {
-                    figure.species = context.getString(R.string.subspecies)
-                }
             }
         }
     }

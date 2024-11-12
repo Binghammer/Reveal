@@ -14,70 +14,64 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginStart="@dimen/margin_med"
+        android:layout_marginTop="@dimen/margin_small"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginEnd="@dimen/margin_med"
+        android:layout_marginBottom="@dimen/margin_small">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@{figure.name}"
+        <ImageView
+            android:id="@+id/figure_image"
+            android:contentDescription="@string/character_image"
+            android:layout_width="@dimen/small_image_width"
+            android:layout_height="@dimen/small_image_height"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/figure_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_med"
+            android:layout_marginTop="@dimen/margin_small"
+            android:gravity="center"
+            android:text="@{figure.name}"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/figure_species"
+            app:layout_constraintStart_toEndOf="@id/figure_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:text="Rick Sanchez" />
 
         <TextView
-            android:id="@+id/species"
+            android:id="@+id/figure_species"
             android:layout_width="0dp"
-            android:text="@{figure.species}"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_med"
+            android:text="@{figure.specificSpecies}"
+            app:layout_constraintBottom_toTopOf="@+id/figure_origin"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            tools:text="@tools:sample/lorem" />
-
-        <TextView
-            android:id="@+id/subSpecies"
-            android:layout_width="0dp"
-            android:text="@{figure.type}"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/known_location"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/species"
+            app:layout_constraintStart_toEndOf="@id/figure_image"
+            app:layout_constraintTop_toBottomOf="@+id/figure_name"
             tools:text="@tools:sample/lorem" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/known_location"
-            android:layout_width="0dp"
-            android:text="@{figure.location.name}"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subSpecies"
-            tools:text="@tools:sample/lorem" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/origin_Name"
+            android:id="@+id/figure_origin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_med"
+            android:layout_marginBottom="@dimen/margin_small"
             android:gravity="center"
             android:text="@{figure.origin.name}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/known_location"
-            tools:text="@tools:sample/lorem" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            app:layout_constraintStart_toEndOf="@id/figure_image"
+            app:layout_constraintTop_toBottomOf="@+id/figure_species"
+            tools:text="@tools:sample/lorem" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

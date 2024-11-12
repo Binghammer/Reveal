@@ -2,4 +2,5 @@
     <string name="app_name">OpenProject</string>
     <string name="subspecies">No Known Subspecies</string>
     <string name="welcome_to_the_identifi_interview_process">Welcome To Identifi Interview Process</string>
+    <string name="character_image">Character Image</string>
 </resources>

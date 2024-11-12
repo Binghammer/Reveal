@@ -14,7 +14,7 @@ import com.openproject.data.model.Figure
 @TypeConverters(
     LocationConverter::class,
     OriginConverter::class,
-    ListConverter::class
+    ListConverter::class,
 )
 abstract class AppDatabase : RoomDatabase() {
 

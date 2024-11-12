@@ -1,4 +1,4 @@
-package com.openproject.ui.figure
+package com.openproject.ui.list
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -13,6 +13,7 @@ import com.ua.openproject.databinding.ListItemCharacterBinding
 
 class RickAdapter(
     private val context: Context,
+    private val picasso: Picasso,
     private val onFigureClicked: (Figure) -> Unit,
 ) : ListAdapter<Figure, RecyclerView.ViewHolder>(diffUtil) {
 
@@ -38,7 +39,7 @@ class RickAdapter(
         private val diffUtil = object : DiffUtil.ItemCallback<Figure>() {
 
             override fun areItemsTheSame(oldItem: Figure, newItem: Figure): Boolean {
-                return oldItem === newItem
+                return oldItem == newItem
             }
 
             override fun areContentsTheSame(oldItem: Figure, newItem: Figure): Boolean {
@@ -47,8 +48,9 @@ class RickAdapter(
         }
     }
 
-    inner class CharacterHolder(private val binding: ListItemCharacterBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class CharacterHolder(
+        private val binding: ListItemCharacterBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
         lateinit var figure: Figure
 
         init {
@@ -58,8 +60,7 @@ class RickAdapter(
         fun bind(figure: Figure) {
             this.figure = figure
             binding.figure = figure
-            Picasso.Builder(context)
-                .build()
+            picasso
                 .load(figure.image)
                 .noFade()
                 .placeholder(R.drawable.outline_person_24)

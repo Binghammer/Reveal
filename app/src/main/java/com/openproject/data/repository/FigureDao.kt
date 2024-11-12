@@ -17,6 +17,7 @@ interface FigureDao {
     @Query("SELECT * FROM Figure WHERE id = :id")
     fun getFigure(id: Int): Single<Figure>
 
-    @Query("SELECT * FROM Figure ORDER BY name ASC LIMIT :count")
-    fun getFigures(count: Int): Observable<List<Figure>>
+    @Query("SELECT * FROM Figure")
+    fun getFigures(): Observable<List<Figure>>
+
 }

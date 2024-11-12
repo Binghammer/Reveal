@@ -7,6 +7,7 @@ import com.openproject.data.api.RickService
 import com.openproject.data.repository.AppDatabase
 import com.openproject.data.repository.FigureDao
 import com.openproject.data.repository.RickRepository
+import com.squareup.picasso.Picasso
 import com.ua.openproject.R
 import dagger.Module
 import dagger.Provides
@@ -31,6 +32,14 @@ internal object MainModule {
     @Named(BASE_URL)
     fun provideBaseUrl(@ApplicationContext appContext: Context): String {
         return appContext.getString(R.string.base_url)
+    }
+
+    @Provides
+    @Singleton
+    fun providePicasso(
+        @ApplicationContext context: Context,
+    ): Picasso {
+        return Picasso.Builder(context).build()
     }
 
     @Provides
@@ -77,10 +86,10 @@ internal object MainModule {
 
     @Provides
     @Singleton
-    fun provideCharacterDao(
+    fun provideFigureDao(
         appDatabase: AppDatabase,
     ): FigureDao {
-        return appDatabase.characterDao()
+        return appDatabase.figureDao()
     }
 
     @Provides

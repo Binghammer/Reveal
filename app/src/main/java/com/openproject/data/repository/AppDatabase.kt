@@ -18,6 +18,6 @@ import com.openproject.data.model.Figure
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun characterDao(): FigureDao
+    abstract fun figureDao(): FigureDao
 
 }

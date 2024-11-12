@@ -18,7 +18,7 @@ class FiguresListViewModel @Inject constructor(rickRepository: RickRepository) :
         get() = _figures
 
     private val disposable: Disposable = rickRepository
-        .getFigures((1..101).toList().map { it.toString() })
+        .getFigures()
         .subscribe(_figures::postValue, Timber::e)
 
     override fun onCleared() {

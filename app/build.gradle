@@ -24,7 +24,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        resValue "string", "base_url", "https://rickandmortyapi.com/"
+        resValue "string", "base_url", "https://rickandmortyapi.com/api/"
     }
 
     buildFeatures {

@@ -1,4 +1,4 @@
-package com.openproject.ui.character
+package com.openproject.ui.figure
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,11 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.ua.openproject.R
-import com.openproject.data.model.Character
+import com.openproject.data.model.Figure
 
 //TODO optimize
 class RickAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var list = listOf<Character>()
+    var list = listOf<Figure>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -27,7 +27,7 @@ class RickAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.View
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val holder = holder as CharacterHolder
-        holder.character = list[position]
+        holder.figure = list[position]
         holder.name.text = list[position].name
         holder.species.text = list[position].species
         holder.subSpecies.text = list[position].type.takeIf { it.isNotBlank() } ?: context.getString(R.string.subspecies)
@@ -50,7 +50,7 @@ class RickAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.View
 }
 
 data class CharacterHolder(val view: View) : RecyclerView.ViewHolder(view) {
-    var character : Character? = null
+    var figure : Figure? = null
     var name: TextView = view.findViewById(R.id.name)
     var species: TextView = view.findViewById(R.id.species)
     var subSpecies: TextView = view.findViewById(R.id.subSpecies)

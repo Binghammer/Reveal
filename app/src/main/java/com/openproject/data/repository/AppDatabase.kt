@@ -3,11 +3,11 @@ package com.openproject.data.repository
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.openproject.data.model.Character
+import com.openproject.data.model.Figure
 
 @Database(
     entities = [
-        Character::class
+        Figure::class
     ],
     version = 1
 )
@@ -18,6 +18,6 @@ import com.openproject.data.model.Character
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun characterDao(): CharacterDao
+    abstract fun characterDao(): FigureDao
 
 }

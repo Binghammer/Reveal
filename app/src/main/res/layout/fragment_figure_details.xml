@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="character"
-            type="com.openproject.data.model.Character" />
+            name="figure"
+            type="com.openproject.data.model.Figure" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{character.name}"
+            android:text="@{figure.name}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image"
             tools:text="@tools:sample/lorem" />
@@ -48,7 +48,7 @@
             android:id="@+id/species"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{character.species}"
+            android:text="@{figure.species}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name"
@@ -58,7 +58,7 @@
             android:id="@+id/subSpecies"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{character.type}"
+            android:text="@{figure.type}"
             app:layout_constraintBottom_toTopOf="@+id/known_location"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +69,7 @@
             android:id="@+id/gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{character.gender}"
+            android:text="@{figure.gender}"
             android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/subSpecies"
@@ -79,7 +79,7 @@
             android:id="@+id/created"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{character.created}"
+            android:text="@{figure.created}"
             android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/gender"
@@ -89,7 +89,7 @@
             android:id="@+id/known_location"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{character.location.name}"
+            android:text="@{figure.location.name}"
             android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/created"
@@ -98,7 +98,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/origin_Name"
             android:layout_width="wrap_content"
-            android:text="@{character.origin.name}"
+            android:text="@{figure.origin.name}"
             android:layout_height="wrap_content"
             android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"

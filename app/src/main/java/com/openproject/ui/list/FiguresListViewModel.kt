@@ -3,7 +3,7 @@ package com.openproject.ui.list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.openproject.data.model.Character
+import com.openproject.data.model.Figure
 import com.openproject.data.repository.RickRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.Disposable
@@ -11,15 +11,15 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class CharacterListViewModel @Inject constructor(rickRepository: RickRepository) : ViewModel() {
+class FiguresListViewModel @Inject constructor(rickRepository: RickRepository) : ViewModel() {
 
-    private val _characters: MutableLiveData<List<Character>> = MutableLiveData()
-    val characters: LiveData<List<Character>>
-        get() = _characters
+    private val _figures: MutableLiveData<List<Figure>> = MutableLiveData()
+    val figures: LiveData<List<Figure>>
+        get() = _figures
 
     private val disposable: Disposable = rickRepository
-        .getCharacters((1..101).toList().map { it.toString() })
-        .subscribe(_characters::postValue, Timber::e)
+        .getFigures((1..101).toList().map { it.toString() })
+        .subscribe(_figures::postValue, Timber::e)
 
     override fun onCleared() {
         super.onCleared()

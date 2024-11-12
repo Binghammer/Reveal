@@ -2,8 +2,7 @@ package com.openproject.data.repository
 
 import android.annotation.SuppressLint
 import com.openproject.data.api.RickService
-import com.openproject.data.model.Character
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.openproject.data.model.Figure
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -12,25 +11,26 @@ import javax.inject.Inject
 
 class RickRepository @Inject constructor(
     private val rickService: RickService,
-    private val characterDao: CharacterDao,
+    private val figureDao: FigureDao,
 ) {
 
-    fun getCharacters(numbers: List<String>): Observable<List<Character>> {
-        fetchCharacters(numbers)
-        return characterDao.getCharacters(100)
+    fun getFigures(numbers: List<String>): Observable<List<Figure>> {
+        fetchFigures(numbers)
+        return figureDao.getFigures(100)
+            .subscribeOn(Schedulers.io())
     }
 
-    fun getCharacter(id: Int): Single<Character> {
-        return characterDao.getCharacter(id)
+    fun getFigure(id: Int): Single<Figure> {
+        return figureDao.getFigure(id)
+            .subscribeOn(Schedulers.io())
     }
 
     @SuppressLint("CheckResult")
-    private fun fetchCharacters(numbers: List<String>) {
+    private fun fetchFigures(numbers: List<String>) {
         rickService
-            .character(numbers)
+            .figures(numbers)
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(characterDao::insertCharacters, Timber::e)
+            .subscribe(figureDao::insertFigures, Timber::e)
     }
 
 }

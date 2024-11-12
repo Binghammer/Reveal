@@ -1,4 +1,4 @@
-package com.openproject.ui.character
+package com.openproject.ui.figure
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,40 +9,40 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.openproject.data.repository.RickRepository
 import com.squareup.picasso.Picasso
-import com.ua.openproject.databinding.FragmentCharacterDetailsBinding
+import com.ua.openproject.databinding.FragmentFigureDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CharacterDetailFragment : Fragment() {
+class FigureDetailFragment : Fragment() {
 
-    private lateinit var binding: FragmentCharacterDetailsBinding
+    private lateinit var binding: FragmentFigureDetailsBinding
 
     @Inject lateinit var provider: RickRepository
 
-    private val viewModel: CharacterDetailViewModel by viewModels<CharacterDetailViewModel>()
+    private val viewModel: FigureDetailViewModel by viewModels<FigureDetailViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentCharacterDetailsBinding.inflate(inflater, container, false)
+        binding = FragmentFigureDetailsBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val navArgs by navArgs<CharacterDetailFragmentArgs>()
+        val navArgs by navArgs<FigureDetailFragmentArgs>()
         binding.toolbar.title = navArgs.name
         viewModel.setArgs(navArgs.id)
         observeViewModel()
     }
 
     private fun observeViewModel() {
-        viewModel.character.observe(viewLifecycleOwner) {
+        viewModel.figure.observe(viewLifecycleOwner) {
             Picasso.get().load(it.image).into(binding.image)
-            binding.character = it
+            binding.figure = it
         }
     }
 }

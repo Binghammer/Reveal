@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.google.gson.GsonBuilder
 import com.openproject.data.api.RickService
 import com.openproject.data.repository.AppDatabase
-import com.openproject.data.repository.CharacterDao
+import com.openproject.data.repository.FigureDao
 import com.openproject.data.repository.RickRepository
 import com.ua.openproject.R
 import dagger.Module
@@ -80,7 +80,7 @@ internal object MainModule {
     @Singleton
     fun provideCharacterDao(
         appDatabase: AppDatabase,
-    ): CharacterDao{
+    ): FigureDao{
         return appDatabase.characterDao()
     }
 
@@ -88,8 +88,8 @@ internal object MainModule {
     @Singleton
     fun provideRickRepository(
         service: RickService,
-        characterDao: CharacterDao,
+        figureDao: FigureDao,
     ): RickRepository {
-        return RickRepository(service, characterDao)
+        return RickRepository(service, figureDao)
     }
 }

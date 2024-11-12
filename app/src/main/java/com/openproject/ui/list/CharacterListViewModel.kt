@@ -18,7 +18,7 @@ class CharacterListViewModel @Inject constructor(rickRepository: RickRepository)
         get() = _characters
 
     private val disposable: Disposable = rickRepository
-        .character((1..101).toList().map { it.toString() })
+        .getCharacters((1..101).toList().map { it.toString() })
         .subscribe(_characters::postValue, Timber::e)
 
     override fun onCleared() {

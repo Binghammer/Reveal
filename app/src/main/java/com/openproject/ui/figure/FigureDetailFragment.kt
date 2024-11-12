@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.openproject.data.repository.RickRepository
 import com.squareup.picasso.Picasso
+import com.ua.openproject.R
 import com.ua.openproject.databinding.FragmentFigureDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -41,7 +42,11 @@ class FigureDetailFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.figure.observe(viewLifecycleOwner) {
-            Picasso.get().load(it.image).into(binding.image)
+            Picasso.get()
+                .load(it.image)
+                .noFade()
+                .placeholder(R.drawable.outline_person_24)
+                .into(binding.image)
             binding.figure = it
         }
     }

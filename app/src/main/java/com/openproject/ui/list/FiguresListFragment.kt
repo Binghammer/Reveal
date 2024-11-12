@@ -7,21 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import com.openproject.ui.figure.CharacterHolder
+import com.openproject.data.model.Figure
 import com.openproject.ui.figure.RickAdapter
 import com.ua.openproject.R
-import com.ua.openproject.databinding.FragmentCharacterBinding
+import com.ua.openproject.databinding.FragmentFiguresListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FiguresListFragment : Fragment(R.layout.fragment_character), RickAdapter.ItemClickListener {
+class FiguresListFragment : Fragment(R.layout.fragment_figures_list) {
 
-    private lateinit var binding: FragmentCharacterBinding
+    private lateinit var binding: FragmentFiguresListBinding
     private val viewModel: FiguresListViewModel by viewModels<FiguresListViewModel>()
 
     private val rickAdapter: RickAdapter by lazy {
-        RickAdapter(requireContext())
+        RickAdapter(requireContext(), ::onFigureClicked)
     }
 
     override fun onCreateView(
@@ -30,12 +29,11 @@ class FiguresListFragment : Fragment(R.layout.fragment_character), RickAdapter.I
         savedInstanceState: Bundle?,
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = FragmentCharacterBinding.inflate(inflater, container, false)
+        binding = FragmentFiguresListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        rickAdapter.listener = this
         binding.recyclerview.adapter = rickAdapter
     }
 
@@ -51,13 +49,12 @@ class FiguresListFragment : Fragment(R.layout.fragment_character), RickAdapter.I
     }
 
     //TODO move this to ViewModel
-    override fun onItemClick(view: RecyclerView.ViewHolder) {
-        val characterHolder = view as CharacterHolder
+    fun onFigureClicked(figure: Figure) {
         findNavController().navigate(
             FiguresListFragmentDirections
                 .figureFragmentToDetails(
-                    characterHolder.figure?.name!!,
-                    characterHolder.figure?.id!!
+                    figure.name,
+                    figure.id
                 )
         )
     }

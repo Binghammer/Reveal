@@ -65,8 +65,6 @@ internal object MainModule {
         return retrofit.create(RickService::class.java)
     }
 
-
-
     @Provides
     @Singleton
     fun provideAppDatabase(
@@ -76,20 +74,22 @@ internal object MainModule {
             .databaseBuilder(appContext, AppDatabase::class.java, "rick")
             .build()
     }
+
     @Provides
     @Singleton
     fun provideCharacterDao(
         appDatabase: AppDatabase,
-    ): FigureDao{
+    ): FigureDao {
         return appDatabase.characterDao()
     }
 
     @Provides
     @Singleton
     fun provideRickRepository(
+        @ApplicationContext context: Context,
         service: RickService,
         figureDao: FigureDao,
     ): RickRepository {
-        return RickRepository(service, figureDao)
+        return RickRepository(context, service, figureDao)
     }
 }

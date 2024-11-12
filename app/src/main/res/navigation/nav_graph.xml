@@ -9,7 +9,7 @@
         android:id="@+id/figure_fragment"
         android:name="com.openproject.ui.list.FiguresListFragment"
         android:label="Welcome"
-        tools:layout="@layout/fragment_character">
+        tools:layout="@layout/fragment_figures_list">
         <action
             android:id="@+id/figure_Fragment_To_Details"
             app:destination="@+id/figure_details_fragment">

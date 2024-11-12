@@ -2,59 +2,71 @@ package com.openproject.ui.figure
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.openproject.data.model.Figure
 import com.squareup.picasso.Picasso
 import com.ua.openproject.R
-import com.openproject.data.model.Figure
+import com.ua.openproject.databinding.ListItemCharacterBinding
 
-//TODO optimize
-class RickAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var list = listOf<Figure>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+class RickAdapter(
+    private val context: Context,
+    private val onFigureClicked: (Figure) -> Unit,
+) : ListAdapter<Figure, RecyclerView.ViewHolder>(diffUtil) {
 
-    lateinit var listener: ItemClickListener
+    var list: List<Figure>
+        get() = currentList
+        set(value) = submitList(value)
+
+    private val inflater: LayoutInflater by lazy {
+        LayoutInflater.from(context)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return CharacterHolder(LayoutInflater.from(context).inflate(R.layout.list_item_character, parent, false))
+        return CharacterHolder(ListItemCharacterBinding.inflate(inflater, parent, false))
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val holder = holder as CharacterHolder
-        holder.figure = list[position]
-        holder.name.text = list[position].name
-        holder.species.text = list[position].species
-        holder.subSpecies.text = list[position].type.takeIf { it.isNotBlank() } ?: context.getString(R.string.subspecies)
-        holder.known_location.text = list[position].location.name
-        holder.origin_Name.text = list[position].origin.name
-        Picasso.Builder(context)
-            .build()
-            .load(list[position].image)
-            .into(holder.imageView)
-        holder.view.setOnClickListener { this.listener.onItemClick(holder) }
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+        (viewHolder as CharacterHolder).bind(list[position])
     }
 
-    override fun getItemCount(): Int {
-        return list.size
+    override fun getItemCount(): Int = list.size
+
+    companion object {
+        private val diffUtil = object : DiffUtil.ItemCallback<Figure>() {
+
+            override fun areItemsTheSame(oldItem: Figure, newItem: Figure): Boolean {
+                return oldItem === newItem
+            }
+
+            override fun areContentsTheSame(oldItem: Figure, newItem: Figure): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 
-    interface ItemClickListener {
-        fun onItemClick(view : RecyclerView.ViewHolder)
-    }
-}
+    inner class CharacterHolder(private val binding: ListItemCharacterBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        lateinit var figure: Figure
 
-data class CharacterHolder(val view: View) : RecyclerView.ViewHolder(view) {
-    var figure : Figure? = null
-    var name: TextView = view.findViewById(R.id.name)
-    var species: TextView = view.findViewById(R.id.species)
-    var subSpecies: TextView = view.findViewById(R.id.subSpecies)
-    var known_location: TextView = view.findViewById(R.id.known_location)
-    var origin_Name: TextView = view.findViewById(R.id.origin_Name)
-    var imageView: ImageView = view.findViewById(R.id.imageView)
+        init {
+            binding.root.setOnClickListener { onFigureClicked(figure) }
+        }
+
+        fun bind(figure: Figure) {
+            this.figure = figure
+            binding.figure = figure
+            Picasso.Builder(context)
+                .build()
+                .load(figure.image)
+                .noFade()
+                .placeholder(R.drawable.outline_person_24)
+                .resizeDimen(R.dimen.small_image_height, R.dimen.small_image_width)
+                .centerInside()
+                .into(binding.imageView)
+        }
+    }
+
 }

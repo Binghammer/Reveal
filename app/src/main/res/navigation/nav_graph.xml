@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/character_fragment">
+    app:startDestination="@id/figure_fragment">
 
     <fragment
-        android:id="@+id/character_fragment"
-        android:name="com.openproject.character.CharcterFragment"
-        android:label="Welcome"
-        tools:layout="@layout/fragment_character">
+        android:id="@+id/figure_fragment"
+        android:name="com.openproject.ui.list.FiguresListFragment"
+        android:label="@string/characters"
+        tools:layout="@layout/fragment_figures_list">
         <action
-            android:id="@+id/character_Fragment_To_Details"
-            app:destination="@+id/character_details_fragment">
+            android:id="@+id/figure_Fragment_To_Details"
+            app:destination="@+id/figure_details_fragment">
         </action>
     </fragment>
 
     <fragment
-        tools:layout="@layout/fragment_character_details"
-        android:id="@+id/character_details_fragment"
-        android:name="com.openproject.character.CharacterDetailFragment" >
+        tools:layout="@layout/fragment_figure_details"
+        android:id="@+id/figure_details_fragment"
+        android:name="com.openproject.ui.figure.FigureDetailFragment" >
         <argument
             android:name="name"
             app:argType="string"

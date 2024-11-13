@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="figure"
+            type="com.openproject.data.model.Figure" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/figure_name_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_med"
+                android:layout_marginTop="@dimen/margin_med"
+                android:layout_marginEnd="@dimen/margin_med"
+                app:cardCornerRadius="@dimen/card_corner"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/figure_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@tools:sample/avatars" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/figure_name"
+                        style="@style/TextAppearance.AppCompat.Headline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_small"
+                        android:gravity="center"
+                        android:text="@{figure.name}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/figure_image"
+                        tools:text="@tools:sample/lorem" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/figure_info_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_med"
+                android:layout_marginTop="@dimen/margin_med"
+                android:layout_marginEnd="@dimen/margin_med"
+                app:cardCornerRadius="@dimen/card_corner"
+                app:layout_constraintTop_toBottomOf="@+id/figure_name_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/figure_info_title"
+                        style="@style/TextAppearance.AppCompat.Headline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_small"
+                        android:gravity="center"
+                        android:text="@string/info"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/figure_info_species_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_small"
+                        android:gravity="end"
+                        android:text="@string/species_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/figure_info_species"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/figure_info_title" />
+
+                    <TextView
+                        android:id="@+id/figure_info_species"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_small"
+                        android:ellipsize="end"
+                        android:text="@{figure.species}"
+                        android:textStyle="bold"
+                        app:layout_constraintBaseline_toBaselineOf="@id/figure_info_species_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/figure_info_species_title"
+                        tools:text="@tools:sample/lorem" />
+
+                    <TextView
+                        android:id="@+id/figure_info_subspecies_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_small"
+                        android:gravity="end"
+                        android:text="@string/subspecies_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/figure_info_subspecies"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/figure_info_species_title" />
+
+                    <TextView
+                        android:id="@+id/figure_info_subspecies"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_small"
+                        android:ellipsize="end"
+                        android:text="@{figure.type}"
+                        android:textStyle="bold"
+                        app:layout_constraintBaseline_toBaselineOf="@id/figure_info_subspecies_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/figure_info_subspecies_title"
+                        tools:text="@tools:sample/lorem" />
+
+                    <TextView
+                        android:id="@+id/figure_info_gender_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_small"
+                        android:gravity="end"
+                        android:text="@string/gender_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/figure_info_gender"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/figure_info_subspecies_title" />
+
+                    <TextView
+                        android:id="@+id/figure_info_gender"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_small"
+                        android:ellipsize="end"
+                        android:text="@{figure.gender}"
+                        android:textStyle="bold"
+                        app:layout_constraintBaseline_toBaselineOf="@id/figure_info_gender_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/figure_info_gender_title"
+                        tools:text="@tools:sample/lorem" />
+
+                    <TextView
+                        android:id="@+id/figure_info_created_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_small"
+                        android:gravity="end"
+                        android:text="@string/created_title"
+                        app:layout_constraintBottom_toTopOf="@id/figure_info_location_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/figure_info_created"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/figure_info_gender_title" />
+
+                    <TextView
+                        android:id="@+id/figure_info_created"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_small"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{figure.created}"
+                        android:textStyle="bold"
+                        app:layout_constraintBaseline_toBaselineOf="@id/figure_info_created_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/figure_info_created_title"
+                        tools:text="@tools:sample/lorem" />
+
+                    <TextView
+                        android:id="@+id/figure_info_location_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_small"
+                        android:gravity="end"
+                        android:text="@string/location_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/figure_info_location"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/figure_info_created_title" />
+
+                    <!-- TODO make clickable-->
+                    <TextView
+                        android:id="@+id/figure_info_location"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_small"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{figure.location.name}"
+                        android:textStyle="bold"
+                        app:layout_constraintBaseline_toBaselineOf="@id/figure_info_location_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/figure_info_location_title"
+                        tools:text="@tools:sample/lorem" />
+
+                    <TextView
+                        android:id="@+id/figure_info_origin_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_med"
+                        android:gravity="end"
+                        android:text="@string/origin_title"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/figure_info_origin"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/figure_info_location_title" />
+
+                    <!-- TODO make clickable-->
+                    <TextView
+                        android:id="@+id/figure_info_origin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_med"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{figure.origin.name}"
+                        android:textStyle="bold"
+                        app:layout_constraintBaseline_toBaselineOf="@id/figure_info_origin_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/figure_info_origin_title"
+                        tools:text="@tools:sample/lorem" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/figure_episodes_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_med"
+                android:layout_marginTop="@dimen/margin_med"
+                android:layout_marginEnd="@dimen/margin_med"
+                app:cardCornerRadius="@dimen/card_corner"
+                app:layout_constraintTop_toBottomOf="@+id/figure_info_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/figure_episodes_title"
+                        style="@style/TextAppearance.AppCompat.Headline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_small"
+                        android:gravity="center"
+                        android:text="@string/episodes_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/figure_episode_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_med"
+                        android:nestedScrollingEnabled="false"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/figure_episodes_title" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

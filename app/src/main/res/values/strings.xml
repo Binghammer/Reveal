@@ -3,4 +3,14 @@
     <string name="subspecies">No Known Subspecies</string>
     <string name="welcome_to_the_identifi_interview_process">Welcome To Identifi Interview Process</string>
     <string name="character_image">Character Image</string>
+    <string name="info">Info</string>
+    <string name="species_title">Species</string>
+    <string name="subspecies_title">Sub-Species</string>
+    <string name="gender_title">Gender</string>
+    <string name="created_title">Created</string>
+    <string name="location_title">Location</string>
+    <string name="origin_title">Origin</string>
+    <string name="episodes_title">Episodes</string>
+    <string name="characters">Characters</string>
+    <string name="unknown">unknown</string>
 </resources>

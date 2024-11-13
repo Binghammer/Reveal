@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "7e4f31e1af9bd9b6ce4dc6e9c15ae025",
+    "identityHash": "94d67a8410ae940a87d466109f54d6f4",
     "entities": [
       {
         "tableName": "Figure",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `status` TEXT NOT NULL, `species` TEXT NOT NULL, `type` TEXT NOT NULL, `gender` TEXT NOT NULL, `origin` TEXT NOT NULL, `location` TEXT NOT NULL, `image` TEXT NOT NULL, `episode` TEXT NOT NULL, `url` TEXT NOT NULL, `created` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`figureId` INTEGER NOT NULL, `name` TEXT NOT NULL, `status` TEXT NOT NULL, `species` TEXT NOT NULL, `type` TEXT NOT NULL, `gender` TEXT NOT NULL, `origin` TEXT NOT NULL, `location` TEXT NOT NULL, `image` TEXT NOT NULL, `episodes` TEXT NOT NULL, `url` TEXT NOT NULL, `created` TEXT NOT NULL, PRIMARY KEY(`figureId`))",
         "fields": [
           {
             "fieldPath": "id",
-            "columnName": "id",
+            "columnName": "figureId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -63,8 +63,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "episode",
-            "columnName": "episode",
+            "fieldPath": "episodes",
+            "columnName": "episodes",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -84,7 +84,90 @@
         "primaryKey": {
           "autoGenerate": false,
           "columnNames": [
-            "id"
+            "figureId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Episode",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`episodeId` INTEGER NOT NULL, `airDate` TEXT NOT NULL, `characters` TEXT NOT NULL, `created` TEXT NOT NULL, `episode` TEXT NOT NULL, `name` TEXT NOT NULL, `url` TEXT NOT NULL, PRIMARY KEY(`episodeId`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "episodeId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "airDate",
+            "columnName": "airDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "characters",
+            "columnName": "characters",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "episode",
+            "columnName": "episode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "episodeId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "FigureEpisodeCrossReference",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`figureId` INTEGER NOT NULL, `episodeId` INTEGER NOT NULL, PRIMARY KEY(`figureId`, `episodeId`))",
+        "fields": [
+          {
+            "fieldPath": "figureId",
+            "columnName": "figureId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "episodeId",
+            "columnName": "episodeId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "figureId",
+            "episodeId"
           ]
         },
         "indices": [],
@@ -94,7 +177,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7e4f31e1af9bd9b6ce4dc6e9c15ae025')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '94d67a8410ae940a87d466109f54d6f4')"
     ]
   }
 }

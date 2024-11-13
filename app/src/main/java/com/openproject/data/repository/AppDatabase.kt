@@ -3,11 +3,15 @@ package com.openproject.data.repository
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.openproject.data.model.Episode
 import com.openproject.data.model.Figure
+import com.openproject.data.model.FigureEpisodeCrossReference
 
 @Database(
     entities = [
-        Figure::class
+        Figure::class,
+        Episode::class,
+        FigureEpisodeCrossReference::class,
     ],
     version = 1
 )
@@ -19,5 +23,6 @@ import com.openproject.data.model.Figure
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun figureDao(): FigureDao
+    abstract fun episodeDao(): EpisodeDao
 
 }

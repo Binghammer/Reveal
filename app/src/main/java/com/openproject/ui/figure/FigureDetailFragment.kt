@@ -1,13 +1,17 @@
 package com.openproject.ui.figure
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.openproject.data.repository.RickRepository
+import com.openproject.data.model.Episode
+import com.openproject.data.repository.FigureRepository
+import com.openproject.ui.MainActivity
 import com.squareup.picasso.Picasso
 import com.ua.openproject.R
 import com.ua.openproject.databinding.FragmentFigureDetailsBinding
@@ -19,7 +23,12 @@ class FigureDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentFigureDetailsBinding
 
-    @Inject lateinit var provider: RickRepository
+    private val episodesAdapter: EpisodesAdapter by lazy {
+        EpisodesAdapter(requireContext(), ::onEpisodeClicked)
+    }
+
+    @Inject lateinit var provider: FigureRepository
+    @Inject lateinit var picasso: Picasso
 
     private val viewModel: FigureDetailViewModel by viewModels<FigureDetailViewModel>()
 
@@ -35,19 +44,45 @@ class FigureDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val navArgs by navArgs<FigureDetailFragmentArgs>()
-        binding.toolbar.title = navArgs.name
+        (requireActivity() as MainActivity).toolbar.title = navArgs.name
         viewModel.setArgs(navArgs.id)
+        setupViews()
         observeViewModel()
     }
 
+    private fun onEpisodeClicked(episode: Episode) {
+        //TODO
+        Toast.makeText(requireContext(), "TODO", Toast.LENGTH_LONG).show()
+    }
+
+    private fun setupViews() {
+        binding.figureEpisodeRecycler.adapter = episodesAdapter
+    }
+
     private fun observeViewModel() {
+        val margin = requireContext().resources.getDimension(R.dimen.margin_small) * 2
+        val width = Resources.getSystem().displayMetrics.widthPixels - margin
+
+        val unknownString = requireContext().getString(R.string.unknown)
+
         viewModel.figure.observe(viewLifecycleOwner) {
-            Picasso.get()
-                .load(it.image)
+            val figure = it.copy(
+                species = it.species.ifBlank { unknownString },
+                type = it.type.ifBlank { unknownString },
+                created = it.created.ifBlank { unknownString },
+                origin = it.origin.copy(name = it.origin.name.ifBlank { unknownString }),
+                location = it.location.copy(name = it.location.name.ifBlank { unknownString })
+            )
+            picasso.load(it.image)
                 .noFade()
-                .placeholder(R.drawable.outline_person_24)
-                .into(binding.image)
-            binding.figure = it
+                .resize(width.toInt(), 0)
+                .centerInside()
+                .into(binding.figureImage)
+            binding.figure = figure
+        }
+
+        viewModel.episodes.observe(viewLifecycleOwner) {
+            episodesAdapter.list = it
         }
     }
 }

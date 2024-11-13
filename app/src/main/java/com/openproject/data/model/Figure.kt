@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 /**
  * A figure (Character) of Rick And Morty. Named Character to prevent conflicts with of
@@ -12,6 +13,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "Figure")
 data class Figure(
     @PrimaryKey
+    @ColumnInfo("figureId")
     val id: Int,
 
     @ColumnInfo
@@ -52,8 +54,9 @@ data class Figure(
     /**
      *  List of episodes in which this character appeared.
      */
-    @ColumnInfo
-    var episode: List<String>,
+    @SerializedName("episode")
+    @ColumnInfo(name = "episodes")
+    var episodes: List<String>,
 
     /**
      * Link to the character's own URL endpoint.

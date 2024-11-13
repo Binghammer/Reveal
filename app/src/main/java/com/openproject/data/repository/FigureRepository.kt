@@ -1,11 +1,10 @@
 package com.openproject.data.repository
 
-import android.content.Context
 import com.openproject.data.api.RickService
 import com.openproject.data.model.Figure
+import com.openproject.data.model.FigureEpisodeCrossReference
+import com.openproject.data.model.FigureWithEpisodes
 import com.openproject.data.model.FiguresResponse
-import com.ua.openproject.R
-import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -15,10 +14,10 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-class RickRepository @Inject constructor(
-    @ApplicationContext private val context: Context,
+class FigureRepository @Inject constructor(
     private val rickService: RickService,
     private val figureDao: FigureDao,
+    private val episodeRepository: EpisodeRepository,
 ) {
 
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
@@ -26,8 +25,23 @@ class RickRepository @Inject constructor(
     init {
         //only get data once per session
         scope.launch {
-            Paginate().fetch()
+            val figures = Paginate().fetch()
+            episodeRepository.run()
+            defineEpisodes(figures)
         }
+    }
+
+    private fun defineEpisodes(figures: List<Figure>) {
+        val crossRefs = mutableListOf<FigureEpisodeCrossReference>()
+        figures.forEach { figure ->
+            crossRefs.addAll(figure.episodes
+                .map { episode ->
+                    val episodeId = episode.split("/").last().toInt()
+                    FigureEpisodeCrossReference(figure.id, episodeId)
+                })
+        }
+
+        figureDao.insertFigureEpisodeCrossReferences(crossRefs)
     }
 
     fun getFigures(): Observable<List<Figure>> {
@@ -36,8 +50,8 @@ class RickRepository @Inject constructor(
             .subscribeOn(Schedulers.io())
     }
 
-    fun getFigure(id: Int): Single<Figure> {
-        return figureDao.getFigure(id)
+    fun getFigure(id: Int): Single<FigureWithEpisodes> {
+        return figureDao.getFigureWithEpisodes(id)
             .subscribeOn(Schedulers.io())
     }
 
@@ -55,7 +69,7 @@ class RickRepository @Inject constructor(
         private var page: Int? = null
         private var totalPages: Int = 0
 
-        fun fetch() {
+        fun fetch(): List<Figure> {
             Timber.d("Fetching page $page/$totalPages")
             fetchFigures(page)?.let { response ->
                 page = response.info.next?.split("?page=")?.lastOrNull()?.toIntOrNull()
@@ -67,11 +81,13 @@ class RickRepository @Inject constructor(
 
                 //Could either save as we go, or return when done. Depends on specs
                 figureDao.insertFigures(response.results)
+
+                if (page != null) {
+                    return response.results + fetch()
+                }
             }
 
-            if (page != null) {
-                fetch()
-            }
+            return emptyList()
         }
     }
 }

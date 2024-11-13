@@ -5,8 +5,10 @@ import androidx.room.Room
 import com.google.gson.GsonBuilder
 import com.openproject.data.api.RickService
 import com.openproject.data.repository.AppDatabase
+import com.openproject.data.repository.EpisodeDao
+import com.openproject.data.repository.EpisodeRepository
 import com.openproject.data.repository.FigureDao
-import com.openproject.data.repository.RickRepository
+import com.openproject.data.repository.FigureRepository
 import com.squareup.picasso.Picasso
 import com.ua.openproject.R
 import dagger.Module
@@ -94,11 +96,28 @@ internal object MainModule {
 
     @Provides
     @Singleton
-    fun provideRickRepository(
-        @ApplicationContext context: Context,
+    fun provideEpisodeDao(
+        appDatabase: AppDatabase,
+    ): EpisodeDao {
+        return appDatabase.episodeDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFigureRepository(
         service: RickService,
         figureDao: FigureDao,
-    ): RickRepository {
-        return RickRepository(context, service, figureDao)
+        episodeRepository: EpisodeRepository,
+    ): FigureRepository {
+        return FigureRepository(service, figureDao, episodeRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideEpisodeRepository(
+        service: RickService,
+        episodeDao: EpisodeDao,
+    ): EpisodeRepository {
+        return EpisodeRepository(service, episodeDao)
     }
 }

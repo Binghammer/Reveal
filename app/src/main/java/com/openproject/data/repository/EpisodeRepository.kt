@@ -24,7 +24,7 @@ class EpisodeRepository @Inject constructor(
     }
 
     private suspend fun fetchEpisodes(page: Int?): EpisodesResponse? {
-        val response = rickService.episodes(page).execute()
+        val response = rickService.episodes(page)
         return if (response.isSuccessful) {
             response.body()
         } else {

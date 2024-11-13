@@ -3,12 +3,12 @@ package com.openproject.ui.figure
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.openproject.data.model.Episode
 import com.openproject.data.model.Figure
 import com.openproject.data.repository.FigureRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.disposables.Disposable
-import timber.log.Timber
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,20 +24,13 @@ class FigureDetailViewModel @Inject constructor(
     val episodes: LiveData<List<Episode>>
         get() = _episodes
 
-    private lateinit var disposable: Disposable
-
     fun setArgs(id: Int) {
-        disposable = figureRepository
-            .getFigure(id)
-            .subscribe({
+        viewModelScope.launch {
+            figureRepository.getFigure(id).let {
                 _figure.postValue(it.figure)
                 _episodes.postValue(it.episodes)
-            }, Timber::e)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        disposable.dispose()
+            }
+        }
     }
 
 }

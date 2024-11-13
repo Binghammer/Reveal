@@ -1,13 +1,12 @@
 package com.openproject.data.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.openproject.data.api.RickService
 import com.openproject.data.model.Figure
 import com.openproject.data.model.FigureEpisodeCrossReference
 import com.openproject.data.model.FigureWithEpisodes
 import com.openproject.data.model.FiguresResponse
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,7 +30,7 @@ class FigureRepository @Inject constructor(
         }
     }
 
-    private fun defineEpisodes(figures: List<Figure>) {
+    private suspend fun defineEpisodes(figures: List<Figure>) {
         val crossRefs = mutableListOf<FigureEpisodeCrossReference>()
         figures.forEach { figure ->
             crossRefs.addAll(figure.episodes
@@ -44,19 +43,16 @@ class FigureRepository @Inject constructor(
         figureDao.insertFigureEpisodeCrossReferences(crossRefs)
     }
 
-    fun getFigures(): Observable<List<Figure>> {
-        return figureDao.getFigures()
-            .map { it.sortedBy(Figure::name) }
-            .subscribeOn(Schedulers.io())
+    fun getFigures(): LiveData<List<Figure>> {
+        return figureDao.getFigures().map { it.sortedBy(Figure::name) }
     }
 
-    fun getFigure(id: Int): Single<FigureWithEpisodes> {
+    suspend fun getFigure(id: Int): FigureWithEpisodes {
         return figureDao.getFigureWithEpisodes(id)
-            .subscribeOn(Schedulers.io())
     }
 
-    private fun fetchFigures(page: Int?): FiguresResponse? {
-        val response = rickService.figures(page).execute()
+    private suspend fun fetchFigures(page: Int?): FiguresResponse? {
+        val response = rickService.figures(page)
         return if (response.isSuccessful) {
             response.body()
         } else {
@@ -67,19 +63,19 @@ class FigureRepository @Inject constructor(
 
     inner class Paginate {
         private var page: Int? = null
-        private var totalPages: Int = 0
+        private var totalPages: String = "?"
 
-        fun fetch(): List<Figure> {
+        suspend fun fetch(): List<Figure> {
             Timber.d("Fetching page $page/$totalPages")
             fetchFigures(page)?.let { response ->
                 page = response.info.next?.split("?page=")?.lastOrNull()?.toIntOrNull()
-                totalPages = response.info.pages
+                totalPages = response.info.pages.toString()
 
-                // We could prevent unnecessary API calls  by comparing
-                // the "info.count" to our figure.count. But they can be
+                // We could prevent unnecessary API calls by comparing
+                // the "info.count" to our figure.count, but they can be
                 // updated often.
 
-                //Could either save as we go, or return when done. Depends on specs
+                //Could either save as we go, or return when done. Depends on requirements
                 figureDao.insertFigures(response.results)
 
                 if (page != null) {
